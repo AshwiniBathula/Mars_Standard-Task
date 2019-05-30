@@ -1,0 +1,430 @@
+{
+	"info": {
+		"_postman_id": "1ffc77cc-f402-4a17-8dd0-4aac7734a670",
+		"name": "ReqRes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get All Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f813f290-0e76-4cac-9834-c056878f7dbe",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Status code is 200 using expect\", function () {",
+									"    pm.expect(pm.response.to.have.status(200)).to.eql(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 700ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(700);",
+									"});",
+									"",
+									"pm.test(\"Resopnse has a property page\"),function(){",
+									"    pm.response.to.have.property('page','2');",
+									"}",
+									"",
+									"",
+									"pm.test(\"response data has value\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.).to.eql(4);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Url}}",
+							"host": [
+								"{{Url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single User not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cf935e66-2cf3-4a19-81b5-3c3e87faa339",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Status code name has not FOund\", function () {",
+									"    pm.response.to.have.status(\"Not Found\");",
+									"});",
+									"",
+									"pm.test(\"expect test to check status\", function(){",
+									"    pm.expect(pm.response.json.result[0])",
+									"    ",
+									"}",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}api/users/23",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"users",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f3d32a7-13ea-4aa5-942a-8ff6cf198887",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+									"});",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.name).to.eql(\"Ashwini\");",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Resopnse has a property page\"),function(){",
+									"    pm.response.to.have.property('id');",
+									"}",
+									"",
+									"var jsonData = pm.response.json();",
+									"var schema = {",
+									"  \"definitions\": {}, ",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\", ",
+									"  \"$id\": \"http://example.com/root.json\", ",
+									"  \"type\": \"object\", ",
+									"  \"title\": \"The Root Schema\", ",
+									"  \"description\": \"An explanation about the purpose of this instance.\", ",
+									"  \"readOnly\": true, ",
+									"  \"writeOnly\": false, ",
+									"  \"required\": [",
+									"    \"checked\", ",
+									"    \"dimensions\", ",
+									"    \"id\", ",
+									"    \"name\", ",
+									"    \"price\", ",
+									"    \"tags\"",
+									"  ], ",
+									"  \"properties\": {",
+									"    \"checked\": {",
+									"      \"$id\": \"#/properties/checked\", ",
+									"      \"type\": \"boolean\", ",
+									"      \"title\": \"The Checked Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"default\": false, ",
+									"      \"examples\": [",
+									"        false",
+									"      ], ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false",
+									"    }, ",
+									"    \"dimensions\": {",
+									"      \"$id\": \"#/properties/dimensions\", ",
+									"      \"type\": \"object\", ",
+									"      \"title\": \"The Dimensions Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false, ",
+									"      \"required\": [",
+									"        \"width\", ",
+									"        \"height\"",
+									"      ], ",
+									"      \"properties\": {",
+									"        \"width\": {",
+									"          \"$id\": \"#/properties/dimensions/properties/width\", ",
+									"          \"type\": \"integer\", ",
+									"          \"title\": \"The Width Schema\", ",
+									"          \"description\": \"An explanation about the purpose of this instance.\", ",
+									"          \"default\": 0, ",
+									"          \"examples\": [",
+									"            5",
+									"          ], ",
+									"          \"readOnly\": true, ",
+									"          \"writeOnly\": false",
+									"        }, ",
+									"        \"height\": {",
+									"          \"$id\": \"#/properties/dimensions/properties/height\", ",
+									"          \"type\": \"integer\", ",
+									"          \"title\": \"The Height Schema\", ",
+									"          \"description\": \"An explanation about the purpose of this instance.\", ",
+									"          \"default\": 0, ",
+									"          \"examples\": [",
+									"            10",
+									"          ], ",
+									"          \"readOnly\": true, ",
+									"          \"writeOnly\": false",
+									"        }",
+									"      }",
+									"    }, ",
+									"    \"id\": {",
+									"      \"$id\": \"#/properties/id\", ",
+									"      \"type\": \"integer\", ",
+									"      \"title\": \"The Id Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"default\": 0, ",
+									"      \"examples\": [",
+									"        1",
+									"      ], ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false",
+									"    }, ",
+									"    \"name\": {",
+									"      \"$id\": \"#/properties/name\", ",
+									"      \"type\": \"string\", ",
+									"      \"title\": \"The Name Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"default\": \"\", ",
+									"      \"examples\": [",
+									"        \"A green door\"",
+									"      ], ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false, ",
+									"      \"pattern\": \"^(.*)$\"",
+									"    }, ",
+									"    \"price\": {",
+									"      \"$id\": \"#/properties/price\", ",
+									"      \"type\": \"number\", ",
+									"      \"title\": \"The Price Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"default\": 0.0, ",
+									"      \"examples\": [",
+									"        12.5",
+									"      ], ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false",
+									"    }, ",
+									"    \"tags\": {",
+									"      \"$id\": \"#/properties/tags\", ",
+									"      \"type\": \"array\", ",
+									"      \"title\": \"The Tags Schema\", ",
+									"      \"description\": \"An explanation about the purpose of this instance.\", ",
+									"      \"readOnly\": true, ",
+									"      \"writeOnly\": false, ",
+									"      \"items\": {",
+									"        \"$id\": \"#/properties/tags/items\", ",
+									"        \"type\": \"string\", ",
+									"        \"title\": \"The Items Schema\", ",
+									"        \"description\": \"An explanation about the purpose of this instance.\", ",
+									"        \"default\": \"\", ",
+									"        \"examples\": [",
+									"          \"home\", ",
+									"          \"green\"",
+									"        ], ",
+									"        \"readOnly\": true, ",
+									"        \"writeOnly\": false, ",
+									"        \"pattern\": \"^(.*)$\"",
+									"      }",
+									"    }",
+									"  }",
+									"};",
+									"",
+									"",
+									"pm.test('Schema is valid', function() {",
+									"  var result=tv4.validate(jsonData, schema);",
+									"  console.log(result);",
+									"  pm.expect(result).to.be.true;",
+									"  ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ashwini\",\r\n    \"job\": \"Programmer\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Url}}api/users",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ashwini.gantla@gmail.com\",\r\n    \"password\": \"abcdef\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Url}}api/register",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Put",
+			"item": [
+				{
+					"name": "Update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1eb7fa1d-f8ac-4a76-9779-31f3a6965cb9",
+								"exec": [
+									"pm.test(\"Resopnse has a property UpdatedAt\", function () {",
+									"    pm.response.to.have.property('updatedAt',$timestamp);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}"
+						},
+						"url": {
+							"raw": "{{Url}}api/users/2",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Url}}api/users/2",
+							"host": [
+								"{{Url}}api"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

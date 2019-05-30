@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "6f82e3aa-3d34-4a87-8d77-3883069ed3e0",
+		"name": "country codes and territories",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Get all countries by country code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d20738ac-a575-4e41-95df-32060917dcba",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"check messages text\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    var text=jsonData.RestResponse.messages[0];",
+									"    pm.expect(text).to.eql('Total [36] records found.');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Total record count is 36\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.RestResponse.result.length).to.eql(36);",
+									"});",
+									"",
+									"pm.test(\"All Records contains country IND\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for(var obj in jsonData.RestResponse.result){",
+									"    pm.expect(jsonData.RestResponse.result[obj].country).to.not.eql(null);",
+									"    pm.expect(jsonData.RestResponse.result[obj].country).to.not.eql(\"\");",
+									"    pm.expect(jsonData.RestResponse.result[obj].country).to.eql('IND');",
+									"}});",
+									"",
+									"",
+									"   pm.test(\"Capital is not null or empty\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    for(var obj in jsonData.RestResponse.result){",
+									"    pm.expect(jsonData.RestResponse.result[obj].capital).to.not.eql(null);",
+									"    pm.expect(jsonData.RestResponse.result[obj].capital).to.not.eql(\"\");",
+									"    }",
+									"}); ",
+									"      ",
+									"    ",
+									"    //var s=jsonData.RestResponse.result[obj];",
+									"    //console.log(jsonData.RestResponse.result[obj]);",
+									"    //tests[\"Id of row #\" + obj + \" is not null\"] = !!s.id;",
+									"    //tests[\"Id of row #\" + obj + \" is not empty\"] = s.id !== \"\";",
+									"    //tests[\"Country of row #\" + obj + \" is IND\"] = s.country === \"IND\";",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://services.groupkt.com/state/get/IND/all",
+							"protocol": "http",
+							"host": [
+								"services",
+								"groupkt",
+								"com"
+							],
+							"path": [
+								"state",
+								"get",
+								"IND",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
